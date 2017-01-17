@@ -14,3 +14,4 @@ js/reveal.min.js
 /ansible/clouds.yaml
 /ansible/roles
 /ansible/clouddev.retry
+/ansible/login.sh

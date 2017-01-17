@@ -37,6 +37,10 @@
                 groups=clouddev
                 ansible_ssh_private_key_file=~/.ssh/dreamcompute-douhel2.pem
                 ansible_ssh_user=ubuntu
+    - name: Create local login script
+      template: src=login.sh
+                dest=.
+                mode=0755
 
 # Wait for the server to finish booting and become accessible.
 - hosts: clouddev
