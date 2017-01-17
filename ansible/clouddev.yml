@@ -1,12 +1,99 @@
 ---
-- hosts: devstack
+- hosts: localhost
+  connection: local
+  tasks:
+    # Make sure all servers allow ssh input.
+    - name: add ssh ingress rule
+      os_security_group_rule:
+        state: present
+        security_group: default
+        protocol: tcp
+        port_range_min: 22
+        port_range_max: 22
+    - name: create a volume to hold the development files
+      os_volume:
+        state: present
+        wait: yes
+        size: 200
+        display_name: devstack_files
+    - name: launch devstack
+      os_server:
+        name: devstack
+        state: present
+        wait: yes
+        auto_ip: yes
+        # FIXME: Switch to 16.04
+        image: Ubuntu-16.04
+        flavor_ram: 8192
+        key_name: douhel2-iad2
+        network: public
+        volumes:
+          - devstack_files
+      register: devstack
+    - debug:
+        var: devstack.server.public_v4
+    - name: add the server to our ansible inventory
+      add_host: hostname="{{ devstack.server.public_v4 }}"
+                groups=clouddev
+                ansible_ssh_private_key_file=~/.ssh/dreamcompute-douhel2.pem
+                ansible_ssh_user=ubuntu
+
+# Wait for the server to finish booting and become accessible.
+- hosts: clouddev
+  gather_facts: no
+  tasks:
+    - name: Wait for instance to finish booting
+      connection: local
+      wait_for:
+        host="{{ansible_ssh_host|default(inventory_hostname)}}"
+        search_regex=OpenSSH
+        port=22
+        delay=30
+        timeout=600
+    - name: Try to login to the instance
+      raw: "/bin/ls"
+      retries: 5
+      delay: 10
+      ignore_errors: true
+
+# Make the new Ubuntu 16.04 compatible with Ansible.
+- hosts: clouddev
+  gather_facts: no
+  tasks:
+    - name: "Install python2.7 since Ubuntu 16.04 doesn't ship it"
+      raw: "sudo apt-get update -y && sudo apt-get install -y python2.7 aptitude"
+      retries: 5
+      delay: 10
+
+# Configure the /opt filesystem. This has to be separate from the
+# previous step and next step for ordering.
+- hosts: clouddev
+  gather_facts: no
 
   vars:
-    # We have to install Python 2, and it doesn't end up named
+    ansible_python_interpreter: /usr/bin/python2.7
+
+  # Create a filesystem on the attached volume. /dev/vdb
+  tasks:
+    - name: Create /opt filesystem
+      filesystem: fstype=ext4 dev=/dev/vdb
+      become: true
+      become_user: root
+      become_method: sudo
+    - name: Mount /opt filesystem
+      mount: name=/opt src=/dev/vdb fstype=ext4 state=mounted
+      become: true
+      become_user: root
+      become_method: sudo
+
+# Configure the host. This needs to come last.
+- hosts: clouddev
+
+  vars:
+    # We had to install Python 2, and it doesn't end up named
     # "python", so point to it directly.
     ansible_python_interpreter: /usr/bin/python2.7
-    # We are using a separate filesystem for the local repository
-    # cache.
+    # Use a separate filesystem for the local repository cache.
     openstack_dev_repos_dir: "/opt/devel/repos"
     openstack_project_dir: "/opt/devel/projects"
     openstack_repos_dir: "/opt/devel/repos"
@@ -15,9 +102,17 @@
       - version: "2.7"
     swap:
       blocks_count: 4048
-    devstack_server_name: "devstack"
-    devstack_key_name: "douhel2-iad2"
-    devstack_ssh_private_key_file: ~/.ssh/dreamcompute-douhel2.pem
 
   roles:
-    - devstack
+    - ansible-city.swap
+    # - user
+    # - user-ssh
+    # - ubuntu
+    # - hellfly-vpn
+    # - git
+    - dhellmann.python-dev
+    - dhellmann.openstack-dev
+    # - dev
+    # - openstack
+    # - gpg
+    # - dhellmann.exim4-sender
