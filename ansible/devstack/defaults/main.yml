@@ -1,2 +1,4 @@
 ---
 # defaults file for devstack
+devstack_server_name = "devstack"
+devstack_ssh_private_key_file = "{{ansible_ssh_private_key_file}}"
