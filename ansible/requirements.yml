@@ -1,0 +1,7 @@
+- src: ansible-city.swap
+- src: git@github.com:dhellmann/ansible-python-dev.git
+  scm: git
+  name: dhellmann.python-dev
+- src: git@github.com:dhellmann/ansible-openstack-dev.git
+  scm: git
+  name: dhellmann.openstack-dev
