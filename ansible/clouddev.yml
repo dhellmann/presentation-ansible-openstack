@@ -108,3 +108,4 @@
     - ansible-city.swap
     - dhellmann.python-dev
     - dhellmann.openstack-dev
+    - devstack

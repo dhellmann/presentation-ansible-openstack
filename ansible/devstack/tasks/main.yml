@@ -1,0 +1,17 @@
+---
+# tasks file for devstack
+- name: Create /opt/stack
+  file: path=/opt/stack
+        state=directory
+        owner={{ansible_env.USER}}
+        group={{ansible_env.USER}}
+  become: true
+- name: Clone devstack
+  git: repo=https://git.openstack.org/openstack-dev/devstack
+       dest={{ansible_env.HOME}}/devstack
+       update=no
+- name: Install ~/devstack/local.conf
+  copy: dest={{ansible_env.HOME}}/devstack/local.conf
+        src=local.conf
+        mode=0644
+        owner={{ansible_env.USER}}
