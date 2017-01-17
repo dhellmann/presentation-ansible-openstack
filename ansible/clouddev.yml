@@ -106,14 +106,5 @@
 
   roles:
     - ansible-city.swap
-    # - user
-    # - user-ssh
-    # - ubuntu
-    # - hellfly-vpn
-    # - git
     - dhellmann.python-dev
     - dhellmann.openstack-dev
-    # - dev
-    # - openstack
-    # - gpg
-    # - dhellmann.exim4-sender
