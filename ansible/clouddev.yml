@@ -1,0 +1,23 @@
+---
+- hosts: devstack
+
+  vars:
+    # We have to install Python 2, and it doesn't end up named
+    # "python", so point to it directly.
+    ansible_python_interpreter: /usr/bin/python2.7
+    # We are using a separate filesystem for the local repository
+    # cache.
+    openstack_dev_repos_dir: "/opt/devel/repos"
+    openstack_project_dir: "/opt/devel/projects"
+    openstack_repos_dir: "/opt/devel/repos"
+    python_dev_versions:
+      - version: "3.5"
+      - version: "2.7"
+    swap:
+      blocks_count: 4048
+    devstack_server_name: "devstack"
+    devstack_key_name: "douhel2-iad2"
+    devstack_ssh_private_key_file: ~/.ssh/dreamcompute-douhel2.pem
+
+  roles:
+    - devstack
