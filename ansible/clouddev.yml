@@ -16,7 +16,7 @@
         wait: yes
         size: 200
         display_name: devstack_files
-    - name: launch devstack
+    - name: launch VM
       os_server:
         name: devstack
         state: present
