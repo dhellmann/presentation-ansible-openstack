@@ -97,6 +97,7 @@
     openstack_dev_repos_dir: "/opt/devel/repos"
     openstack_project_dir: "/opt/devel/projects"
     openstack_repos_dir: "/opt/devel/repos"
+    python_dev_install_pypy: false
     python_dev_versions:
       - version: "3.5"
       - version: "2.7"
