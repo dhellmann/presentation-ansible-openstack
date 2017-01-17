@@ -13,3 +13,4 @@ css/reveal.min.css
 js/reveal.min.js
 /ansible/clouds.yaml
 /ansible/roles
+/ansible/clouddev.retry
