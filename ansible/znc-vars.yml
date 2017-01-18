@@ -1,0 +1,32 @@
+---
+local_home: '{{lookup("env", "HOME")}}'
+znc_nick: dhellmann
+znc_quit_msg: disconnecting
+znc_real_name: Doug Hellmann
+znc_extra_modules:
+  - log
+znc_networks:
+  - name: freenode
+    ident: dhellmann
+    server_name: chat.freenode.net
+    server_port: "+6697"
+    channels:
+      - "##openstack-social"
+      - "#openstack-release"
+      - "#openstack-dev"
+      - "#openstack-meeting"
+      - "#openstack"
+      - "#openstack-atlanta"
+znc_firewall_bypass_port: 6672
+znc_clients:
+  - name: laptop
+    port: 6671
+    buffer: 300
+    use_ssl: true
+    auto_clear_chan_buffer: true
+  - name: phone
+    port: 6672
+    buffer: 100
+    auto_clear_chan_buffer: true
+    subscribe_all_channels: false
+    use_ssl: true

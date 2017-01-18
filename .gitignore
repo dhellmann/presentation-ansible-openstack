@@ -15,3 +15,5 @@ js/reveal.min.js
 /ansible/roles
 /ansible/clouddev.retry
 /ansible/login.sh
+/ansible/znc.retry
+/ansible/vaultpass

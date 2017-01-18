@@ -5,3 +5,6 @@
 - src: git@github.com:dhellmann/ansible-openstack-dev.git
   scm: git
   name: dhellmann.openstack-dev
+- src: git@github.com:dhellmann/ansible-znc-on-znc.git
+  scm: git
+  name: dhellmann.znc-on-znc
