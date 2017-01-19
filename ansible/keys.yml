@@ -1,3 +1,6 @@
 ---
+# Set the name of the key known to the OpenStack cloud.
 key_name: douhel2-iad2
+# Set the name of the local private key file associated
+# with the named key.
 private_key_file: ~/.ssh/dreamcompute-douhel2.pem

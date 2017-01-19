@@ -28,26 +28,29 @@ Running the Devstack Demo
 
     $ ansible-galaxy install -r requirements.yml
 
-7. Set up your 'clouds.yaml' file and 'OS_CLOUD' environment variable.
+7. Edit 'keys.yml' to set the ssh key information to use for the
+   server.
 
-8. Verify that authentication is working properly by running an
+8. Set up your 'clouds.yaml' file and 'OS_CLOUD' environment variable.
+
+9. Verify that authentication is working properly by running an
    openstack command::
 
     $ openstack server list
 
-9. Edit clouddev.yml to set the private key file to one matching your
-   cloud.
+10. Edit clouddev.yml to set the private key file to one matching your
+    cloud.
 
-10. Run the playbook::
+11. Run the playbook::
 
     $ ansible-playbook ./clouddev.yml
 
-11. Note the IP address of the server in the output of ansible-playbook.
+12. Note the IP address of the server in the output of ansible-playbook.
 
-12. Use ssh to login to the server, using the private key specified
+13. Use ssh to login to the server, using the private key specified
     and the user 'ubuntu'.
 
-13. Run devstack::
+14. Run devstack::
 
     $ cd ~/devstack
     $ ./stack.sh
