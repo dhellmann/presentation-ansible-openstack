@@ -31,8 +31,99 @@
                   <h4>OpenStack-Atlanta, January 2017</h4>
                 </section>
 
+                <section>
+                  <h3>Tools</h3>
+                  <ul>
+                    <li>ansible 2.x</li>
+                    <li>shade</li>
+                    <li>python-openstackclient</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h3>ansible over-simplified</h3>
+                  <div style="text-align: left">
+                  Create a <em>playbook</em><br/>
+                  to map <em>roles</em><br/>
+                  to <em>inventory</em> and<br/>
+                  run idempotent configuration <em>tasks</em>.
+                  </div>
+                </section>
+
+                <section>
+                  <h3>Installing</h3>
+
+<pre>
+$ git clone https://github.com/dhellmann/presentation-ansible-openstack.git
+$ cd presentation-ansible-openstack/ansible
+$ virtualenv --python=python2.7 venv
+$ source venv/bin/activate
+$ pip install -r requirements.txt
+$ ansible-galaxy install -r requirements.yml
+</pre>
+                </section>
+
+                <section>
+                  <h3>Configuring</h3>
+
+clouds.yml:
+                  <pre>
+clouds:
+  dreamcompute:
+    auth:
+      username: douhel2
+      password: NO_PEEKING
+      project_name: dhc1246820
+      auth_url: https://iad2.dream.io:5000
+</pre>
+
+shell:
+                  <pre>
+export OS_CLOUD=dreamcompute
+</pre>
+
+                </section>
+
+                <section>
+                  <h3>Verify Auth Setup</h3>
+<pre>
+$ openstack server list
++------+--------+--------------+
+| Name | Status | Image Name   |
++------+--------+--------------+
+| dev1 | ACTIVE | Ubuntu-16.04 |
+| vpn  | ACTIVE | Ubuntu-14.04 |
+| znc  | ACTIVE |              |
++------+--------+--------------+
+</pre>
+                </section>
+
+                <section>
+                  <h2>ZNC Demo</h2>
+                  <ul>
+                    <li>Launching a server</li>
+                    <li>Dynamic Inventory</li>
+                    <li>Security Groups and Rules</li>
+                    <li>Deploying Software</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h2>Devstack Demo</h2>
+                  <ul>
+                    <li>Launching a server, with a volume</li>
+                    <li>Adding swap</li>
+                    <li>Cloning git repos</li>
+                    <li>Creating a local login script</li>
+                  </ul>
+                </section>
+
 				<section>
+                  <small>
                   <a href="http://docs.ansible.com/ansible/list_of_cloud_modules.html">http://docs.ansible.com/ansible/list_of_cloud_modules.html</a><br/>
+                  <a href="https://github.com/dhellmann/presentation-ansible-openstack">https://github.com/dhellmann/presentation-ansible-openstack</a><br/>
+                  <a href="http://docs.openstack.org/infra/shade/">http://docs.openstack.org/infra/shade/</a>
+                  </small>
                 </section>
 
 			</div>
