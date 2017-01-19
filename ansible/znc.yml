@@ -4,6 +4,7 @@
   vars:
     local_home: '{{lookup("env", "HOME")}}'
   vars_files:
+    - keys.yml
     - znc-vars.yml
   tasks:
     # Create a security group and the rules needed for the ports we'll
@@ -43,7 +44,7 @@
         # FIXME: Switch to 16.04
         image: Ubuntu-16.04
         flavor_ram: 512
-        key_name: douhel2-iad2
+        key_name: '{{key_name}}'
         network: public
       register: zncvm
     - debug:
@@ -51,7 +52,7 @@
     - name: add the server to our ansible inventory
       add_host: hostname="{{ zncvm.server.public_v4 }}"
                 groups=znc
-                ansible_ssh_private_key_file=~/.ssh/dreamcompute-douhel2.pem
+                ansible_ssh_private_key_file="{{private_key_file}}"
                 ansible_ssh_user=ubuntu
 
 # Wait for the server to finish booting and become accessible.

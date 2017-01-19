@@ -1,6 +1,8 @@
 ---
 - hosts: localhost
   connection: local
+  vars_files:
+    - keys.yml
   tasks:
     # Make sure all servers allow ssh input.
     - name: add ssh ingress rule
@@ -25,7 +27,7 @@
         # FIXME: Switch to 16.04
         image: Ubuntu-16.04
         flavor_ram: 8192
-        key_name: douhel2-iad2
+        key_name: '{{key_name}}'
         network: public
         volumes:
           - devstack_files
@@ -35,7 +37,7 @@
     - name: add the server to our ansible inventory
       add_host: hostname="{{ devstack.server.public_v4 }}"
                 groups=clouddev
-                ansible_ssh_private_key_file=~/.ssh/dreamcompute-douhel2.pem
+                ansible_ssh_private_key_file="{{private_key_file}}"
                 ansible_ssh_user=ubuntu
     - name: Create local login script
       template: src=login.sh
