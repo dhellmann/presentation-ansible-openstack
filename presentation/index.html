@@ -79,7 +79,7 @@ $ ansible-galaxy install -r requirements.yml
                 </section>
 
                 <section>
-                  <h3>Configuring</h3>
+                  <h3>Configuring 1/3</h3>
 
 clouds.yml:
                   <pre>
@@ -91,12 +91,25 @@ clouds:
       project_name: dhc1246820
       auth_url: https://iad2.dream.io:5000
 </pre>
+                </section>
 
+
+                <section>
+                  <h3>Configuring 2/3</h3>
+
+keys.yml:
+                  <pre>
+key_name: douhel2-iad2
+private_key_file: ~/.ssh/dreamcompute-douhel2.pem
+</pre>
+                </section>
+
+                <section>
+                  <h3>Configuring 3/3</h3>
 shell:
                   <pre>
 export OS_CLOUD=dreamcompute
 </pre>
-
                 </section>
 
                 <section>
