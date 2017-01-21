@@ -1,0 +1,28 @@
+---
+# This playbook deletes the resources created by the other two.
+
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Remove devstack VM
+      os_server:
+        name: devstack
+        state: absent
+        wait: yes
+    - name: Remove devstack volume
+      os_volume:
+        display_name: devstack_files
+        state: absent
+        wait: yes
+
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Remove zncdemo VM
+      os_server:
+        name: zncdemo
+        state: absent
+    - name: Remove ZNC security group
+      os_security_group:
+        name: 'znc-demo'
+        state: absent
