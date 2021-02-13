@@ -7,7 +7,7 @@ out/
 .svn
 /docs/log/*.log
 /docs/tmp/**
-/docs/node_modules/
+/node_modules/
 /docs/.sass-cache
 /docs/css/reveal.min.css
 /docs/js/reveal.min.js
