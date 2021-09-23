@@ -1,4 +1,4 @@
-ansible==2.2.1.0
+ansible==4.2.0
 appdirs==1.4.0
 Babel==2.3.4
 cffi==1.9.1
